@@ -6,6 +6,12 @@
     <title>List</title>
 </head>
 <body>
-    <H1>This is the list</H1>
+    <h1>Welcome, {{ user.username }}!</h1>
+    <p>Your full name: {{ user.first_name }} {{ user.last_name }}</p>
+    <p>Your email: {{ user.email }}</p>
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
 </body>
 </html>
