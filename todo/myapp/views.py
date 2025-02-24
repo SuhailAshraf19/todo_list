@@ -7,11 +7,8 @@ from django.contrib import messages
 # Create your views here.
 def home(request):
     if request.user.is_authenticated:
-        return render(request,'index.html',{"user": request.user})
-    else:
-        return redirect(request,'login.html')  
-
-    return render(request,"index.html")
+        return render(request,"index.html")
+    return redirect("login")
 def login_user(request):
     if request.method == 'POST':
         username=request.POST.get('username')
@@ -25,7 +22,7 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return redirect("home")
+    return redirect("login")
 def signup_user(request):
     print(request)
     if request.method == 'POST':
