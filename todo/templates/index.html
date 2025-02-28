@@ -9,6 +9,7 @@
     <h1>Welcome, {{ user.username }}!</h1>
     <p>Your full name: {{ user.first_name }} {{ user.last_name }}</p>
     <p>Your email: {{ user.email }}</p>
+    <li><a href="{% url 'lists' %}">Lists</a></li>
     <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
         <button type="submit">Logout</button>

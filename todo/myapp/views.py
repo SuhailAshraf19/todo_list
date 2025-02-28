@@ -1,8 +1,10 @@
 from django.shortcuts import render , redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
-from .models import profile
+from .models import profile, List
 from django.contrib import messages
+from .forms import ListForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
@@ -25,7 +27,7 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return redirect("home")
+    return redirect("login")
 def signup_user(request):
     print(request)
     if request.method == 'POST':
@@ -66,4 +68,22 @@ def signup_user(request):
         messages.success(request, "Signup successful!")
         return redirect("/home")   
     return render(request,"signup.html")
-    
+
+@login_required
+def create_list(request):
+    if request.method == 'POST':
+        form = ListForm(request.POST)
+        if form.is_valid:
+            new_list = form.save(commit=False)
+            new_list.user=request.user
+            new_list.save()
+            return redirect('items' ,pk=new_list.pk)
+    else:
+        form=ListForm()
+    return render(request,'create_list.html', {'form' : form})   
+@login_required
+def lists(request):
+    all_lists=List.objects.filter(user=request.user) 
+    return render(request,'lists.html',{'lists':all_lists})
+def list_detail(request, pk):
+    return render(request,"list_detail.html")    
