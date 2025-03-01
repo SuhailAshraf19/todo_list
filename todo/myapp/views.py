@@ -74,6 +74,7 @@ def create_list(request):
             new_list = form.save(commit=False)
             new_list.user=request.user
             new_list.save()
+            print(List.name) 
             return redirect('items' ,pk=new_list.pk)
     else:
         form=ListForm()
