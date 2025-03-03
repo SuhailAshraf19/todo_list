@@ -3,16 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List</title>
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Welcome, {{ user.username }}!</h1>
-    <p>Your full name: {{ user.first_name }} {{ user.last_name }}</p>
-    <p>Your email: {{ user.email }}</p>
-    <li><a href="{% url 'lists' %}">Lists</a></li>
-    <form action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="bg-blue-600 p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="" class="text-white text-2xl font-bold">Home</a>
+            <ul class="hidden md:flex space-x-6">
+                <li><a href="{% url 'lists' %}" class="text-white hover:underline">My Lists</a></li>
+                <li>
+                    <form action="{% url 'logout' %}" method="post" class="inline">
+                        {% csrf_token %}
+                        <button type="submit" class="text-white hover:underline">Logout</button>
+                    </form>
+                </li>
+            </ul>
+            <!-- Profile Dropdown -->
+            <div class="relative">
+                <button id="profileButton" class="flex items-center space-x-2 text-white focus:outline-none">
+                    <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">
+                </button>
+                <div id="dropdownMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-md hidden">
+                    <a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Profile</a>
+                    <a href="{% url 'logout' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-200">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
+        <h1 class="text-2xl font-semibold">Welcome, {{ user.username }}!</h1>
+        <p class="text-gray-600 mt-2">Your full name: <strong>{{ user.first_name }} {{ user.last_name }}</strong></p>
+        <p class="text-gray-600">Your email: <strong>{{ user.email }}</strong></p>
+    </div>
+
+    <script>
+        const profileButton = document.getElementById('profileButton');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        profileButton.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!profileButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.add('hidden');
+            }
+        });
+    </script>
+
 </body>
 </html>

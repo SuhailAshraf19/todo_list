@@ -1,53 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Lists</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            color: #343a40;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            padding: 10px;
-            margin: 5px 0;
-            background-color: #ffffff;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-        }
-        button {
-            background-color: #007bff;
-            color: #ffffff;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 10px 0;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>All Lists</h1>
-    <ul>
-        {% for list in lists %}
-            <li>{{ list.name }}</li>
-        {% endfor %}
-    </ul>
-    <button onclick="location.href='{% url 'create_list' %}'">+ Create New List</button>
+<body class="bg-gray-100 p-6">
+
+    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <!-- Top Bar -->
+        <div class="flex justify-between items-center mb-4">
+            <h1 class="text-2xl font-bold text-gray-800">{{ user.username }}</h1>
+            <button onclick="location.href='{% url 'create_list' %}'" class="bg-green-600 hover:bg-green-800 text-white px-4 py-2 rounded-md">
+                ➕ Create New List
+            </button>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="mb-4">
+            <input type="text" id="searchInput" onkeyup="searchList()" placeholder="Search for a list..." class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+        </div>
+
+        <!-- Lists -->
+        <ul id="listContainer" class="mt-4">
+            {% for list in lists %}
+                <li class="flex justify-between items-center bg-gray-100 px-4 py-2 rounded-md shadow-sm mt-2">
+                    <a href="{% url 'list_detail' list.id %}" class="text-gray-800 hover:underline">{{ list.name }}</a>
+                    <form action="{% url 'delete_list' list.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white px-3 py-1 rounded-md">
+                            🗑️ Delete
+                        </button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script>
+        function searchList() {
+            let input = document.getElementById("searchInput").value.toLowerCase();
+            let items = document.getElementById("listContainer").getElementsByTagName("li");
+
+            for (let i = 0; i < items.length; i++) {
+                let listName = items[i].getElementsByTagName("a")[0].innerText.toLowerCase();
+                if (listName.includes(input)) {
+                    items[i].style.display = "";
+                } else {
+                    items[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+
 </body>
 </html>
