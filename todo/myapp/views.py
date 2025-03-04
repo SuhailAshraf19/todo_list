@@ -116,3 +116,18 @@ def delete_item(request, item_id):
     list_id = item.list.id  # Get the list ID before deleting the item
     item.delete()
     return redirect('list_detail', list_id=list_id)
+@login_required
+def view_profile(request):
+    if request.method == "POST":
+        user = request.user
+        profile = user.profile
+        profile.photo = request.FILES.get('photo', profile.photo)
+        profile.address = request.POST.get('address', profile.address)
+        profile.phone_number = request.POST.get('phone', profile.phone_number)
+        profile.description = request.POST.get('description', profile.description)
+        user.email = request.POST.get('email', user.email)
+        user.first_name, user.last_name = request.POST.get('full_name', "").split(" ", 1)
+        user.save()
+        profile.save()
+        return redirect('profile')  # Redirect to refresh the page
+    return render(request, "view_profile.html")

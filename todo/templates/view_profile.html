@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Info</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+    <div class="relative bg-white shadow-lg rounded-lg p-6 max-w-md w-full text-center">
+
+        <!-- Edit Button with Icon on Top Right -->
+        <button id="editButton" class="absolute top-4 right-4">
+            <img src="data:image/jpeg;base64,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" alt="Edit" class="w-6 h-6 cursor-pointer">
+        </button>
+
+        <h2 class="text-2xl font-semibold text-gray-700 mb-4">Profile Info</h2>
+        
+        <!-- Profile View Section -->
+        <div id="profileView">
+            <img src="{{ user.profile.photo.url }}" class="w-24 h-24 rounded-full mx-auto border-2 border-blue-500 mb-4" alt="Profile Photo">
+            <div class="text-left space-y-2">
+                <p><strong class="text-gray-600">Username:</strong> {{ user.username }}</p>
+                <p><strong class="text-gray-600">Full Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+                <p><strong class="text-gray-600">Email:</strong> {{ user.email }}</p>
+                <p><strong class="text-gray-600">Address:</strong> {{ user.profile.address }}</p>
+                <p><strong class="text-gray-600">Phone:</strong> {{ user.profile.phone_number }}</p>
+                <p><strong class="text-gray-600">Description:</strong> {{ user.profile.description }}</p>
+            </div>
+        </div>
+
+        <!-- Profile Edit Form (Initially Hidden) -->
+        <form id="profileEditForm" class="hidden text-left space-y-3" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label class="block text-gray-600">Profile Photo:</label>
+            <input type="file" name="photo" class="block w-full border rounded p-2">
+            
+            <label class="block text-gray-600">Full Name:</label>
+            <input type="text" name="full_name" value="{{ user.first_name }} {{ user.last_name }}" class="block w-full border rounded p-2">
+
+            <label class="block text-gray-600">Email:</label>
+            <input type="email" name="email" value="{{ user.email }}" class="block w-full border rounded p-2">
+
+            <label class="block text-gray-600">Address:</label>
+            <input type="text" name="address" value="{{ user.profile.address }}" class="block w-full border rounded p-2">
+
+            <label class="block text-gray-600">Phone:</label>
+            <input type="text" name="phone" value="{{ user.profile.phone_number }}" class="block w-full border rounded p-2">
+
+            <label class="block text-gray-600">Description:</label>
+            <textarea name="description" class="block w-full border rounded p-2">{{ user.profile.description }}</textarea>
+
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
+            <button type="button" id="cancelEdit" class="bg-gray-500 text-white px-4 py-2 rounded">Cancel</button>
+        </form>
+    </div>
+
+    <script>
+        const editButton = document.getElementById('editButton');
+        const profileView = document.getElementById('profileView');
+        const profileEditForm = document.getElementById('profileEditForm');
+        const cancelEdit = document.getElementById('cancelEdit');
+
+        editButton.addEventListener('click', () => {
+            profileView.classList.toggle('hidden');
+            profileEditForm.classList.toggle('hidden');
+        });
+
+        cancelEdit.addEventListener('click', () => {
+            profileView.classList.remove('hidden');
+            profileEditForm.classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View List</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
 </head>
 <body class="bg-gray-100 p-6">
 
@@ -14,6 +15,7 @@
         <p class="text-gray-500">Created on: {{ list.created_at|date:"F j, Y, g:i a" }}</p>
 
         <!-- Items List -->
+        
         <h2 class="text-xl font-semibold mt-6 text-gray-700">Items:</h2>
         <ul class="mt-4">
             {% for item in items %}
